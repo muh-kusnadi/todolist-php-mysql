@@ -12,12 +12,12 @@ use Service\TodolistServiceImpl;
 
 function testShowTodolist(): void {
 
-    $todolistRepository = new TodolistRepositoryImpl;
-    $todolistRepository->todolist[1] = new Todolist("Belajar PHP");
-    $todolistRepository->todolist[2] = new Todolist("Belajar PHP OOP");
-    $todolistRepository->todolist[3] = new Todolist("Belajar PHP Database");
-
+    $connection = \Config\Database::getConnection();
+    $todolistRepository = new TodolistRepositoryImpl($connection);
     $todolistService = new TodolistServiceImpl($todolistRepository);
+    $todolistService->addTodolist("Belajar PHP");
+    $todolistService->addTodolist("Belajar PHP OOP");
+    $todolistService->addTodolist("Belajar PHP Database");
 
     $todolistService->showTodolist();
 
@@ -39,30 +39,20 @@ function testAddTodolist(): void {
 
 function testRemoveTodolist(): void {
 
-    $todolistRepository = new TodolistRepositoryImpl;
+    $connection = \Config\Database::getConnection();
+    $todolistRepository = new TodolistRepositoryImpl($connection);
 
     $todolistService = new TodolistServiceImpl($todolistRepository);
-    $todolistService->addTodolist("Belajar PHP");
-    $todolistService->addTodolist("Belajar PHP OOP");
-    $todolistService->addTodolist("Belajar PHP Database");
 
-    $todolistService->showTodolist();
-    
-    $todolistService->removeTodolist(1);
-    $todolistService->showTodolist();
-
-    $todolistService->removeTodolist(4);
-    $todolistService->showTodolist();
-
-    $todolistService->removeTodolist(2);
-    $todolistService->showTodolist();
-
-    $todolistService->removeTodolist(1);
-    $todolistService->showTodolist();
-
-    $todolistService->removeTodolist(1);
-    $todolistService->showTodolist();
+    echo $todolistService->removeTodolist(8) . PHP_EOL;
+    echo $todolistService->removeTodolist(7) . PHP_EOL;
+    echo $todolistService->removeTodolist(6) . PHP_EOL;
+    echo $todolistService->removeTodolist(5) . PHP_EOL;
+    echo $todolistService->removeTodolist(4) . PHP_EOL;
+    echo $todolistService->removeTodolist(3) . PHP_EOL;
+    echo $todolistService->removeTodolist(2) . PHP_EOL;
+    echo $todolistService->removeTodolist(1) . PHP_EOL;
 
 }
 
-testAddTodolist();
+testShowTodolist();
